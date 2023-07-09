@@ -1,0 +1,56 @@
+'use client'
+import React from 'react'
+import { ILocalArrays } from '../../logic/spring'
+
+interface Props {
+  locals: Map<string, ILocalArrays>
+}
+
+const Locals = ({ locals }: Props) => {
+  return (
+    <div className="flex flex-wrap gap-x-6 gap-y-4">
+      {Array.from(locals).map((e, index) => (
+        <div key={index} className="">
+          <p className="text-2xl">Elemento {e[0]}:</p>
+          <table className="table-md mt-4 table w-auto table-auto overflow-hidden bg-base-300">
+            <thead>
+              <tr className="neutral-content text-center text-xl font-bold">
+                <th colSpan={(e[1].local.length || 0) + 1}>{e[0]}</th>
+              </tr>
+              <tr>
+                <th className="bg-base-200"></th>
+                {e[1].tableDOF.map((e, index) => (
+                  <th
+                    key={index}
+                    className="bg-base-200 text-center text-base font-bold text-base-content"
+                  >
+                    {e + 1}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {e[1].local.map((row, index) => (
+                <tr key={index}>
+                  <td className="bg-base-200 text-center text-base font-bold text-base-content">
+                    {e[1].tableDOF[index] + 1}
+                  </td>
+                  {row.map((col, index) => (
+                    <td
+                      key={index}
+                      className="w-16 text-center text-base"
+                    >
+                      {col}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export default Locals
